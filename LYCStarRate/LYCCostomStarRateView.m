@@ -82,7 +82,7 @@
 {
     if (!_commentLab) {
         _commentLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 40)];
-        _commentLab.text  =@"评价";
+        _commentLab.text  =@"请评价本次服务";
         _commentLab.font = [UIFont boldSystemFontOfSize:16.f];
         _commentLab.textColor = [UIColor blackColor];
         _commentLab.textAlignment = NSTextAlignmentCenter;

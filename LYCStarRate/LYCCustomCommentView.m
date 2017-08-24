@@ -19,9 +19,6 @@
 
 @interface LYCCustomCommentView ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) UIButton *customBtn1;
-@property (strong, nonatomic) UIButton *customBtn2;
-@property (strong, nonatomic) UIView *line;
 @property (assign, nonatomic) NSInteger starTag;
 @property (strong, nonatomic) GBCustomTextView *textView;
 @property (strong, nonatomic) UITapGestureRecognizer *gestureRecognizer;
@@ -79,9 +76,6 @@
     [self addSubview:self.tableView];
     [self addSubview:self.textView];
     [self addSubview:self.commitBtn];
-    [self addSubview:self.customBtn1];
-    [self addSubview:self.customBtn2];
-    [self addSubview:self.line];
     [UIView animateWithDuration:0.5 animations:^{
         if (tag == 4) {
             self.frame = CGRectMake(self.frame.origin.x, 200, Width,Height - 200);
@@ -94,9 +88,6 @@
         }
         self.textView.frame = CGRectMake(50, CGRectGetMaxY(self.tableView.frame) + 20, self.bounds.size.width - 100, 50);
         self.commitBtn.frame = CGRectMake(50 , CGRectGetMaxY(self.textView.frame) + 20, Width - 100, 30);
-        self.line.frame = CGRectMake(0, CGRectGetMaxY(self.commitBtn.frame) + 10,Width , 1);
-        self.customBtn1.frame = CGRectMake(100, CGRectGetMaxY(self.line.frame)+ 10, 50,50);
-        self.customBtn2.frame =CGRectMake(Width - 100, CGRectGetMaxY(self.line.frame) + 10, 50,50);
     }];
 }
 
@@ -114,6 +105,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LYCCommentTagCell *cell = [LYCCommentTagCell cellWithUITableView:tableView withIndexPath:indexPath];
+    cell.model = [self testDataArr];
     cell.btnBlock = ^(NSInteger tag, NSString *title,BOOL isSelect) {
         if (isSelect) {
             self.commitBtn.enabled = YES;
@@ -172,16 +164,6 @@ shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 
 
 #pragma mark - buttonClick
-- (void)customBtn1Click:(UIButton *)sender
-{
-
-}
-
-- (void)customBtn2Click:(UIButton *)sender
-{
-
-}
-
 - (void)commitBtnClick:(UIButton *)sender
 {
     NSLog(@"%@",@"递交按钮点击了");
@@ -243,46 +225,9 @@ shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
     return _commitBtn;
 }
 
-
-- (UIButton *)customBtn1
+- (NSArray *)testDataArr
 {
-    if (!_customBtn1) {
-        _customBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
-        _customBtn1.frame = CGRectMake(100, self.bounds.size.height - 20 - 50, 50,50);
-        [_customBtn1 setTitle:@"分享" forState:0];
-        [_customBtn1 setTitleColor:[UIColor grayColor] forState:0];
-        _customBtn1.layer.borderWidth = 1;
-        _customBtn1.layer.borderColor = [UIColor grayColor].CGColor;
-        _customBtn1.layer.cornerRadius = 25;
-        _customBtn1.layer.masksToBounds = YES;
-        [_customBtn1 addTarget:self action:@selector(customBtn1Click:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _customBtn1;
-}
-
-- (UIButton *)customBtn2
-{
-    if (!_customBtn2) {
-        _customBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-        _customBtn2.frame = CGRectMake(200, self.bounds.size.height - 20 - 50, 50,50);
-        [_customBtn2 setTitle:@"H5" forState:0];
-        [_customBtn2 setTitleColor:[UIColor grayColor] forState:0];
-        _customBtn2.layer.borderWidth = 1;
-        _customBtn2.layer.borderColor = [UIColor grayColor].CGColor;
-        _customBtn2.layer.cornerRadius = 25;
-        _customBtn2.layer.masksToBounds = YES;
-        [_customBtn2 addTarget:self action:@selector(customBtn2Click:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _customBtn2;
-}
-
-- (UIView *)line
-{
-    if (!_line) {
-        _line = [[UIView alloc] initWithFrame:CGRectMake(0, self.bounds.size.height - 20 - 50 - 10,self.bounds.size.width , 1)];
-        _line.backgroundColor = [UIColor blackColor];
-    }
-    return _line;
+    return @[@"测试一",@"测试二"];
 }
 
 @end

@@ -25,6 +25,12 @@ static NSString *identifier;
     if (!cell) {
         cell = [[LYCCommentTagCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+//    else{
+//        while ([cell.contentView.subviews lastObject] != nil)
+//        {
+//            [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];
+//        }
+//    }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.selected = NO;
@@ -43,6 +49,17 @@ static NSString *identifier;
 {
     [self.contentView addSubview:self.leftBtn];
     [self.contentView addSubview:self.rightBtn];
+}
+
+- (void)setModel:(id)model
+{
+    _model = model;
+    [self.leftBtn setBackgroundColor:[UIColor whiteColor]];
+    [self.leftBtn setTitleColor:[UIColor grayColor] forState:0];
+    self.leftBtn.selected = NO;
+    [self.rightBtn setBackgroundColor:[UIColor whiteColor]];
+    [self.rightBtn setTitleColor:[UIColor grayColor] forState:0];
+    self.rightBtn.selected = NO;
 }
 
 - (void)buttonClick:(UIButton *)sender
